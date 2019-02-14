@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  main#main.site-main.main
+    section.section
+      .container
+        .row
+          .container.container--medium
+            img.img-fluid.mx-auto.d-block.mb-5(src='/images/icon/favicon.png', alt='') 
+            - if (user){              
+            #dropzone
+              form#my-awesome-dropzone.dropzone(action='/newtheme' enctype="multipart/form-data",method='post')
+                .form-group
+                  label(for='classification') Choose Classification
+                  select#classification(name='classification')
+                  label(for='price')  Set Price
+                  input#price(type='text', name='price',placeholder='Price/￥ 输入数字', value='', size='20') 
+                .form-group  
+                  label(for='description') Add Description
+                  textarea#description.form-control(name='description', type='text', rows='1', cols='150' )
+              input#clsname(type='text', name='clsname',placeholder=' 输入新分类', value='')
+              input#clstitle(type='text', name='clstitle',placeholder=' 分类描述', value='')               
+              button#buttonsend 提交新分类
+              
+            - }
+            - if (!user){
+            h2.text-center.text-gray-soft
+              | You have to Signin to add pics. 
+              a(href='/signin') Sign In
+            h3.text-center.text-gray-soft
+              | Don't have an account yet? 
+              a(href='/signup') Sign up
+            -}
+            
+
+
+

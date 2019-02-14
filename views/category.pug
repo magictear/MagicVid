@@ -1,0 +1,88 @@
+﻿extends layout
+
+block content   
+  main#main.site-main.main
+    section.section
+      .container
+        .row
+          #container
+            #content(role='main')
+              nav.breadcrumb
+                li
+                  a(href='/') Home
+                i.fa.fa-angle-right
+                  - if(!videos[0]){
+                    h2.page-title.mb-2.mb-md-0 This category has no content yet!
+                  - }else{
+                    span.fs-13.text-gray-soft Category:
+                    h2.page-title.mb-2.mb-md-0 #{videos[0].classification}
+                  - }                
+              .archive-title.clearfix
+                .row.align-items-end
+                  .col-md-8
+                    - if(!videos[0]){                      
+                      h2.page-title.mb-2.mb-md-0 This category has no content yet!
+                    - }else{
+                      span.fs-13.text-gray-soft Category:
+                      h2.page-title.mb-2.mb-md-0 #{videos[0].classification}
+                    - }  
+                  .col-md-4
+                    form(action='', method='get')
+                      .d-flex.justify-content-md-end
+                        select#inlineFormCustomSelect.form-control.text-gray-soft(name='orderby')
+                          option() Sort Order
+                          option(value='price') Sort by price: ↑
+                          option(value='price-desc') Sort by price: ↓
+                          option(value='_id') Sort by id:↑
+                          option(value='_id_desc') Sort by id:↓  
+                          option(value='name') Sort by username: ↑a-z
+                          option(value='date') Sort by date: ↑
+                          option(value='date_desc') Sort by date: ↓   
+                    script.                          
+                      jQuery(document).ready(function () {
+                      jQuery("#inlineFormCustomSelect").change(function () {
+                      jQuery(this).closest("form").submit();
+                      });
+                      });
+              ul.row
+                - videos.forEach(function(video){
+                - var pd='/product/'
+                li.col-6
+                  .theme-card
+                    .theme-card__body
+                      .feature__thum
+                        a.d-block
+                          img.theme-card__img.wp-post-video( src=video.video, alt='') 
+                      .feature__des
+                        .feature__content 
+                          a(href=pd+video._id) Shop Now 
+                          h4 #{video.description}  
+                        button.theme-card__body__overlay.btn.btn-brand.btn-sm(class='btnmod',data-toggle='modal', data-target='#myModal') Live preview 
+                    .theme-card__footer
+                      .theme-card__footer__item
+                        a.theme-card__title.mr-1(href=pd+video._id) #{video.name}
+                        p.theme-card__info
+                        ul.prod_cats_list
+                          li
+                            p by
+                              |
+                              a(href='/user/'+video.username)  #{video.username}
+                          li
+                            p |
+                              |
+                              a(href='/category/'+video.classification)  #{video.classification}
+                          li
+                            p | #{video.date}  
+                        p
+                      .theme-card__footer__item
+                        p.theme-card__price
+                          span.woocommerce-Price-amount.amount
+                            span.woocommerce-Price-currencySymbol ￥
+                            | #{video.price}
+                        ul.rating
+                          li.rating__item
+                          li.rating__item
+                          li.rating__item
+                          li.rating__item
+                          li.rating__item
+                - }) 

@@ -1,0 +1,48 @@
+﻿extends layout
+
+block content
+  main#main.site-main.main
+    section.section
+      .container
+        .row
+          .container.container--medium
+            img.img-fluid.mx-auto.d-block.mb-5(src='https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-logo.svg', alt='') 
+            - var pre='/product/',aft='?_method=PUT';
+            - if (user){
+            -if(user.username==video.username){
+            form#editform(name='editform', action=pre+video._id+aft, method='post')
+              .form-group
+                label(for='themename') Video Name
+                input#themename.form-control(type='text', name='name', value=video.name, size='20')
+              .form-group
+                label(for='url') Video Url
+                input#url.form-control(type='text', name='video', value=video.video, size='20')
+              .form-group
+                label(for='price') Price
+                input#price.form-control(type='text', name='price',placeholder='Price/￥ 输入数字', value=video.price, size='20')          
+              .form-group
+                label(for='classification') Choose Classification
+                  select#classification(name='classification')
+              .form-group
+                label(for='description') Video Description
+                textarea#description(name='description', type='text', rows='7', cols='150' ) #{video.description}
+              .form-group
+                input#submit.btn.btn-brand.btn-block.mb-4(type='submit', name='submit', value='Submit')
+            -}else{
+            h2.text-center.text-gray-soft
+              | You don'thave permission to edit this pic. 
+              a(href='/home') Back to home page.
+            -}
+            - }
+            - else{
+            h2.text-center.text-gray-soft
+              | You have to Signin to edit pics. 
+              a(href='/signin') Sign In
+            h3.text-center.text-gray-soft
+              | Don't have an account yet? 
+              a(href='/signup') Sign up
+            -}
+            
+
+
+

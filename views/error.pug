@@ -1,0 +1,13 @@
+﻿extends layout
+
+block content
+  header(class='jumbotron')
+
+  main#main.site-main.main
+    section.section
+      .container
+        .row
+          .container
+            h3 404 抱歉，你访问的页面不存在
+            if (error)
+            h3 #{error} 
